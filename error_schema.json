@@ -1,0 +1,20 @@
+{
+  "properties": {
+    "message": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "error_code": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "message",
+    "timestamp",
+    "error_code"
+  ],
+  "type": "object"
+}

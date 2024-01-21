@@ -8,11 +8,9 @@ app = Flask(__name__)
 
 API_KEY = 'JY8LVI4fQNS-raAnzs5Y4Q'
 
-# Define a JSON schema for the error reports
-error_report_schema = {'type': "object", 'properties': dict(message={"type": "string"},
-                                                            timestamp={"type": "string", "format": "date-time"},
-                                                            error_code={"type": "string"}),
-                       'required': ["message", "timestamp", "error_code"]}
+# Load the JSON schema for the error reports from an external file
+with open('error_schema.json', 'r') as schema_file:
+    error_report_schema = json.load(schema_file)
 
 
 def is_valid_date(timestamp):
