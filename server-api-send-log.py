@@ -18,6 +18,7 @@ except Exception as e:
     print(f"Error loading schema: {e}")
     exit(1)
 
+
 @app.route('/index-log', methods=['POST'])
 def report_error():
     api_key = request.headers.get("API-Key")
@@ -34,13 +35,6 @@ def report_error():
 
     log_data["timestamp"] = datetime.utcnow().isoformat()
 
-    # Save log data to file
-    try:
-        with open('error_log.json', 'a') as file:
-            file.write(json.dumps(log_data) + '\n')
-    except IOError as e:
-        return jsonify({"error": "Failed to write to log file", "message": str(e)}), 500
-
     # Send log data to Logstash
     try:
         requests.post("http://ip server:5055", json=log_data)
@@ -48,6 +42,7 @@ def report_error():
         return jsonify({"error": "Logstash Connection Failed", "message": str(e)}), 500
 
     return jsonify(dict(status="success")), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001, host='0.0.0.0')
