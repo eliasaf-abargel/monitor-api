@@ -1,20 +1,15 @@
 {
   "properties": {
-    "message": {
+    "log_type": {
       "type": "string"
     },
-    "timestamp": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "error_code": {
+    "message": {
       "type": "string"
     }
   },
   "required": [
     "message",
-    "timestamp",
-    "error_code"
+    "log_type"
   ],
   "type": "object"
 }
