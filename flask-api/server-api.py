@@ -10,13 +10,14 @@ app = Flask(__name__)
 
 API_KEY = os.environ.get("API_KEY", "JY8LVI4fQNS-raAnzs5Y4Q")  # Fallback to a default
 
-# Load the schema outside of the route to avoid repeated file reads.
+# Load the schema outside the route to avoid repeated file reads.
 try:
     with open('error_schema.json', 'r') as schema_file:
         error_report_schema = json.load(schema_file)
 except Exception as e:
     print(f"Error loading schema: {e}")
     exit(1)
+
 
 @app.route('/index-log', methods=['POST'])
 def report_error():
@@ -48,6 +49,7 @@ def report_error():
         return jsonify({"error": "Logstash Connection Failed", "message": str(e)}), 500
 
     return jsonify(dict(status="success")), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001, host='0.0.0.0')
