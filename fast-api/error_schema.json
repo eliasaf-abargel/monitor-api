@@ -5,11 +5,41 @@
     },
     "message": {
       "type": "string"
+    },
+    "client_ip": {
+      "type": "string"
+    },
+    "user_agent": {
+      "type": "string"
+    },
+    "referrer": {
+      "type": "string"
+    },
+    "site_name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "body_bytes": {
+          "type": "integer"
+        }
+      }
     }
   },
   "required": [
+    "log_type",
     "message",
-    "log_type"
+    "client_ip",
+    "site_name",
+    "url",
+    "request"
   ],
   "type": "object"
 }

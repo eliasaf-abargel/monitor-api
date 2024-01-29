@@ -1,18 +1,21 @@
-from datetime import datetime
 import os
-import httpx  # Using httpx for async HTTP requests
+import httpx
+import asyncio
+from datetime import datetime
 
 
-async def send_log_to_logstash(log_data):
-    log_data["timestamp"] = datetime.utcnow().isoformat()
-
-    logstash_ip = os.environ.get("LOGSTASH_IP")
+async def send_log_to_logstash(log_data, retries=3, delay=5):
+    logstash_ip = os.getenv("LOGSTASH_IP")
     if not logstash_ip:
-        raise Exception("Logstash IP not configured in .env file")
+        raise Exception("Logstash IP not configured")
 
-    try:
-        # Send log data to Logstash
-        async with httpx.AsyncClient() as client:
-            await client.post(f"http://{logstash_ip}:5055", json=log_data)
-    except httpx.RequestError as e:
-        raise Exception(f"Logstash Connection Failed: {e}")
+    log_data["timestamp"] = datetime.utcnow().isoformat()
+    for attempt in range(retries):
+        try:
+            async with httpx.AsyncClient() as client:
+                await client.post(f"http://{logstash_ip}:5055", json=log_data)
+            break
+        except httpx.RequestError as e:
+            if attempt >= retries - 1:
+                raise Exception(f"Logstash connection failed: {e}")
+            await asyncio.sleep(delay)

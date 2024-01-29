@@ -1,7 +1,13 @@
 import os
 
-API_KEY = os.environ.get("API_KEY", "default-key")
+API_KEYS = {
+    os.getenv('CAROLINA_API_KEY', 'default_carolina_key'): "/index-log/carolinaui",
+    os.getenv('COMAX_API_KEY', 'default_comax_key'): "/index-log/comax",
+    os.getenv('WEB_API_KEY', 'default_web_key'): "/index-log/web",
+}
+
+DEFAULT_KEY = os.getenv("API_KEY", "default-key")
 
 
-def validate_api_key(api_key):
-    return api_key == API_KEY
+def validate_api_key(api_key, path):
+    return api_key in API_KEYS and path.startswith(API_KEYS[api_key]) or api_key == DEFAULT_KEY

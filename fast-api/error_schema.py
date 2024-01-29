@@ -1,11 +1,26 @@
-import json
-import jsonschema
+from pydantic import BaseModel, HttpUrl, IPvAnyAddress
+from typing import Optional
 
 
-def validate_error_schema(log_data):
-    try:
-        with open('error_schema.json', 'r') as schema_file:
-            error_report_schema = json.load(schema_file)
-        jsonschema.validate(instance=log_data, schema=error_report_schema)
-    except jsonschema.exceptions.ValidationError as e:
-        raise Exception(f"Schema validation error: {e}")
+class RequestModel(BaseModel):
+    method: str
+    body_bytes: int
+
+
+class ErrorSchema(BaseModel):
+    log_type: str
+    message: str
+    client_ip: Optional[IPvAnyAddress] = None
+    user_agent: Optional[str] = None
+    referrer: Optional[HttpUrl] = None
+    site_name: str
+    url: HttpUrl
+    request: RequestModel
+
+    def dict(self, **kwargs):
+        d = super().dict(**kwargs)
+        if d.get('url', None) is not None:
+            d['url'] = str(d['url'])
+        if d.get('referrer', None) is not None:
+            d['referrer'] = str(d['referrer']) if d['referrer'] is not None else None
+        return d
