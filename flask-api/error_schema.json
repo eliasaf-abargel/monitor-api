@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "log_type": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "message",
+    "log_type"
+  ],
+  "type": "object"
+}
