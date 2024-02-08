@@ -1,4 +1,4 @@
-from fastapi.middleware.cors import CORSMiddleware  # Corrected typo here
+from fastapi.middleware.cors import CORSMiddleware  # Corrected import
 
 from fastapi import FastAPI, HTTPException, Header, Request
 from error_schema import ErrorSchema
@@ -10,14 +10,19 @@ from datetime import datetime
 
 app = FastAPI()
 
-# Configure CORSMiddleware to accept requests from any origin
+# Add CORSMiddleware to allow all domains
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows requests from any origin
+    allow_origins=["*"],  # Allows all origins
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
+
+# Test endpoint to check CORS
+@app.get("/test-cors")
+async def test_cors():
+    return {"status": "CORS is configured correctly"}
 
 @app.post("/index-log/{client_name}")
 async def report_error(
@@ -45,7 +50,6 @@ async def report_error(
         raise HTTPException(status_code=500, detail=str(e))
 
     return {"status": "success", "client": client_name}
-
 
 if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=5001)
