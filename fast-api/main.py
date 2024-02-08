@@ -1,3 +1,5 @@
+from fastapi.middleware.cors import CORSMiddleware  # Corrected typo here
+
 from fastapi import FastAPI, HTTPException, Header, Request
 from error_schema import ErrorSchema
 import config
@@ -8,6 +10,14 @@ from datetime import datetime
 
 app = FastAPI()
 
+# Configure CORSMiddleware to accept requests from any origin
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows requests from any origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 @app.post("/index-log/{client_name}")
 async def report_error(
