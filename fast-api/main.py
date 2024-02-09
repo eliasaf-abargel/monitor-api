@@ -1,4 +1,4 @@
-from fastapi.middleware.cors import CORSMiddleware  # Corrected import
+from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI, HTTPException, Header, Request
 from error_schema import ErrorSchema
@@ -19,11 +19,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-# Test endpoint to check CORS
-@app.get("/test-cors")
-async def test_cors():
-    return {"status": "CORS is configured correctly"}
-
+# Add a route to report errors
 @app.post("/index-log/{client_name}")
 async def report_error(
         request: Request,
