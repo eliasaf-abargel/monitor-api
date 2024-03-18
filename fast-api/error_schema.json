@@ -6,40 +6,18 @@
     "message": {
       "type": "string"
     },
-    "client_ip": {
+    "environment": {
       "type": "string"
     },
-    "user_agent": {
-      "type": "string"
-    },
-    "referrer": {
-      "type": "string"
-    },
-    "site_name": {
-      "type": "string"
-    },
-    "url": {
-      "type": "string"
-    },
-    "request": {
-      "type": "object",
-      "properties": {
-        "method": {
-          "type": "string"
-        },
-        "body_bytes": {
-          "type": "integer"
-        }
-      }
+    "messages": {
+      "type": "array"
     }
   },
   "required": [
     "log_type",
     "message",
-    "client_ip",
-    "site_name",
-    "url",
-    "request"
+    "environment",
+    "messages"
   ],
   "type": "object"
 }

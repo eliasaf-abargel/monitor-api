@@ -35,13 +35,21 @@ async def report_error(
     log_data_dict = log_data.dict()
     log_data_dict.update({
         "site_name": client_name,
-        "referrer": request.headers.get('referer', 'unknown'),
         "timestamp": datetime.utcnow().isoformat()
     })
 
     # Send the log data to logstash
     try:
-        await send_log_to_logstash(log_data_dict)
+        if "message" in log_data_dict and log_data_dict["message"]:
+            await send_log_to_logstash(log_data_dict)
+        elif "messages" in log_data_dict and log_data_dict["messages"]:
+            messages = log_data_dict["messages"]
+            del log_data_dict["messages"]
+            for message in messages:
+                log_data_dict["message"] = message
+                await send_log_to_logstash(log_data_dict)
+        else:
+             raise Exception("No message in log data")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

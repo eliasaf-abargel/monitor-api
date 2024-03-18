@@ -7,9 +7,9 @@ API_KEYS = {
     os.getenv('WS_API_KEY', 'default_ws_key'): "/index-log/ws",
     os.getenv('WS-API_KEY', 'default_ws-api_key'): "/index-log/ws-api",
     os.getenv('RAMI-API_KEY', 'default_rami-api_key'): "/index-log/RAMI-api",
-    os.getenv('UMax-API_KEY', 'default_UMax-api_key'): "/index-log/UMax-api",
-    os.getenv('BSB-API_KEY', 'default_BSB-api_key'): "/index-log/BSB-api",
-    os.getenv('BinaPos-API_KEY', 'default_BinaPos-api_key'): "/index-log/BinaPos-api",
+    os.getenv('UMax-API_KEY', 'default_UMax-api_key'): "/index-log/UMax",
+    os.getenv('BSB-API_KEY', 'default_BSB-api_key'): "/index-log/BSB",
+    os.getenv('BinaPos-API_KEY', 'default_BinaPos-api_key'): "/index-log/BinaPos",
 
 }
 
