@@ -38,7 +38,7 @@ async def report_error(
         "timestamp": datetime.utcnow().isoformat()
     })
 
-    # Send the log data to logstash
+    # Send the log data to logstash using the log_handler
     try:
         if "message" in log_data_dict and log_data_dict["message"]:
             await send_log_to_logstash(log_data_dict)
