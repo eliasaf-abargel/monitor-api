@@ -10,6 +10,7 @@ API_KEYS = {
     os.getenv('UMax-API_KEY', 'default_UMax-api_key'): "/index-log/UMax",
     os.getenv('BSB-API_KEY', 'default_BSB-api_key'): "/index-log/BSB",
     os.getenv('BinaPos-API_KEY', 'default_BinaPos-api_key'): "/index-log/BinaPos",
+    os.getenv('Comax-App-API_KEY', 'default_Comax-App-api_key'): "/index-log/Comax-App",
 
 }
 
