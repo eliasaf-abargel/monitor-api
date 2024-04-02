@@ -12,5 +12,7 @@ class ErrorSchema(BaseModel):
     message:Optional[str] = None
     environment:Optional[str] = None
     messages:Optional[list[str]] = None
+    user_id:Optional[str] = None
+    ip:Optional[str] = None
 
 

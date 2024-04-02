@@ -19,6 +19,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+
 # Add a route to report errors
 @app.post("/index-log/{client_name}")
 async def report_error(
@@ -49,11 +50,12 @@ async def report_error(
                 log_data_dict["message"] = message
                 await send_log_to_logstash(log_data_dict)
         else:
-             raise Exception("No message in log data")
+            raise Exception("No message in log data")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
     return {"status": "success", "client": client_name}
+
 
 if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=5001)

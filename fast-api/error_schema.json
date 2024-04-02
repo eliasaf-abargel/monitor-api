@@ -11,13 +11,21 @@
     },
     "messages": {
       "type": "array"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "ip": {
+      "type": "string"
     }
   },
   "required": [
     "log_type",
     "message",
     "environment",
-    "messages"
+    "messages",
+    "user_id",
+    "ip"
   ],
   "type": "object"
 }
